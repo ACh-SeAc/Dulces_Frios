@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Dulces Frios</title>
+    <meta name="description" content="Catálogo completo de helados, postres y bebidas.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: { preflight: false },
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#d90429',
+                            pinklight: '#ff5a47',
+                            celeste: '#0275d8',
+                            cream: '#f5b041',
+                            mint: '#089c62',
+                            text: '#000000',
+                            textlight: '#333333'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Quicksand', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 10px 30px rgba(0, 0, 0, 0.15)',
+                        hover: '0 15px 40px rgba(0, 0, 0, 0.3)',
+                        pinkLayer: '0 10px 40px -10px rgba(217, 4, 41, 0.6)',
+                        mintLayer: '0 10px 40px -10px rgba(8, 156, 98, 0.6)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .spring-anim {
+            transition-property: transform, opacity, box-shadow;
+            transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition-duration: 400ms;
+        }
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .catalog-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#fcfaf8] text-brand-text font-body relative overflow-x-hidden">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Dulces<span>Frios</span></div>
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html" class="active" style="color: var(--color-pink); font-weight: bold;">Catálogo</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="contacto.html" class="btn-primary">Contacto</a>
+        </nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </header>
+
+    <main class="pt-[140px] pb-24 min-h-screen relative">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-pink/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 -z-10"></div>
+        <div class="absolute top-[30%] left-0 w-[500px] h-[500px] bg-brand-mint/20 rounded-full blur-[80px] -translate-x-1/2 -z-10"></div>
+        <div class="bg-noise"></div>
+
+        <div class="max-w-7xl mx-auto px-[5%] relative z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-heading font-extrabold tracking-[-0.03em] mb-4 text-brand-text">Catálogo <span class="text-gradient">Completo</span></h1>
+                <p class="text-brand-textlight text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Selecciona tus favoritos y añádelos a tu pedido. ¡Todo el increíble sabor de Dulces Frios!</p>
+            </div>
+
+            <!-- Dynamic Catalog Section -->
+            <div id="catalog-content" class="mb-20"></div>
+
+            <!-- Formulario de Pedido -->
+            <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-2xl border border-white p-8 md:p-12 rounded-[40px] shadow-soft relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-pink/20 rounded-full blur-[60px] pointer-events-none"></div>
+                <h2 class="text-3xl font-heading font-bold mb-8 relative z-10 text-brand-text text-center border-b-2 border-brand-pink/20 pb-4">Concluir mi Pedido</h2>
+
+                <form class="flex flex-col gap-6 relative z-10">
+                    <div id="order-summary" class="bg-brand-cream/10 p-6 rounded-2xl border border-brand-cream/30 mb-2">
+                        <h3 class="font-heading font-bold text-xl mb-4">Resumen de tu pedido:</h3>
+                        <ul id="order-items-list" class="flex flex-col gap-2 font-medium text-brand-textlight mb-4">
+                            <li class="italic">Tu carrito está vacío. Añade productos desde el catálogo.</li>
+                        </ul>
+                        <div class="font-heading font-bold text-2xl text-brand-pink flex justify-between pt-4 border-t border-brand-cream/30">
+                            <span>Total Estimado:</span>
+                            <span id="order-total"> COP</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Nombre y Apellido" class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                        <input type="tel" placeholder="Teléfono / WhatsApp" class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                    </div>
+                    <input type="text" placeholder="Dirección de Entrega (Referencia)" class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                    <textarea rows="3" placeholder="Detalle adicional (Ej: Alérgico a las nueces)" class="w-full px-5 py-4 bg-[#faf8f6] rounded-2xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400 resize-none"></textarea>
+
+                    <button type="button" class="mt-4 bg-brand-text text-white px-8 py-5 rounded-full font-heading font-bold tracking-wide text-lg shadow-soft spring-anim hover:-translate-y-1 hover:shadow-hover hover:bg-brand-pink active:scale-[0.98]">
+                        Confirmar y Enviar Pedido
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">Dulces<span>Frios</span></div>
+                <p>Endulzando tus momentos especiales con la mejor calidad y todo el sabor.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Menú</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dulces Frios. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Catálogo completo de datos (Generado a partir del menu actual)
+        const productsData = [
+            // Helados Clásicos
+            { category: "Helados Clásicos", name: "Vainilla Oro", price: 5000, img: "assets/vainilla_oro.png", desc: "Clásico y cremoso." },
+            { category: "Helados Clásicos", name: "Chocolate", price: 5000, img: "assets/hero_ice_cream_1776180432655.png", desc: "El mejor cacao." },
+            { category: "Helados Clásicos", name: "Fresa", price: 5000, img: "assets/strawberry_ice_cream_1776180595097.png", desc: "Fresas naturales." },
+            { category: "Helados Clásicos", name: "Arequipe", price: 5000, img: "assets/helados_clasicos.png", desc: "Sabor dulce colombiano." },
+            { category: "Helados Clásicos", name: "Café", price: 5000, img: "assets/helados_clasicos.png", desc: "Energía pura." },
+            { category: "Helados Clásicos", name: "Coco", price: 5000, img: "assets/helados_clasicos.png", desc: "Toque tropical." },
+            
+            // Frutales
+            { category: "Helados Frutales", name: "Maracuyá", price: 4500, img: "assets/helados_frutales.png", desc: "Ácido y refrescante." },
+            { category: "Helados Frutales", name: "Mango", price: 4500, img: "assets/helados_frutales.png", desc: "Dulce y tropical." },
+            { category: "Helados Frutales", name: "Mora", price: 4500, img: "assets/helados_frutales.png", desc: "Clásico frutal." },
+            { category: "Helados Frutales", name: "Lulo", price: 4500, img: "assets/helados_frutales.png", desc: "Cítrico colombiano." },
+            { category: "Helados Frutales", name: "Guanábana", price: 4500, img: "assets/helados_frutales.png", desc: "Suave y dulce." },
+            { category: "Helados Frutales", name: "Piña", price: 4500, img: "assets/helados_frutales.png", desc: "Sabor de verano." },
+            
+            // Premium/Especiales
+            { category: "Helados Premium", name: "Cookies & Cream", price: 7000, img: "assets/Mint_ice_cream_1776180514341.png", desc: "Galletas crujientes." },
+            { category: "Helados Premium", name: "Chocolate chips", price: 7000, img: "assets/helados_premium.png", desc: "Chocolate intenso." },
+            { category: "Helados Premium", name: "Brownie", price: 7000, img: "assets/helados_premium.png", desc: "Trozos de bizcocho." },
+            { category: "Helados Premium", name: "Tres leches", price: 7000, img: "assets/helados_premium.png", desc: "Postre hecho helado." },
+            { category: "Helados Premium", name: "Cheesecake de fresa", price: 8000, img: "assets/hero_ice_cream_1776180432655.png", desc: "Con trozos de galleta." },
+            { category: "Helados Premium", name: "Choco brownie", price: 8000, img: "assets/mint_ice_cream_1776180514341.png", desc: "Doble chocolate." },
+            
+            // Paletas / Agua
+            { category: "Paletas y Agua", name: "Paleta de Limón", price: 3000, img: "assets/helados_paletas.png", desc: "Polo de agua cítrico." },
+            { category: "Paletas y Agua", name: "Paleta Mango biche", price: 3500, img: "assets/helados_paletas.png", desc: "Con sal y limón." },
+            { category: "Paletas y Agua", name: "Paleta Fresa", price: 3000, img: "assets/helados_paletas.png", desc: "Fresca paleta de agua." },
+            { category: "Paletas y Agua", name: "Paleta Mora", price: 3000, img: "assets/helados_paletas.png", desc: "Dulce y morado." },
+            { category: "Paletas y Agua", name: "Paleta Maracuyá", price: 3000, img: "assets/helados_paletas.png", desc: "Polo ácido." },
+
+            // Combinados
+            { category: "Helados Combinados", name: "Napolitano", price: 6500, img: "assets/hero_ice_cream_1776180432655.png", desc: "Tres clásicos unidos." },
+            { category: "Helados Combinados", name: "Arequipe + vainilla", price: 6500, img: "assets/helados_premium.png", desc: "Mezcla perfecta." },
+            { category: "Helados Combinados", name: "Chocolate + brownie", price: 7500, img: "assets/mint_ice_cream_1776180514341.png", desc: "Frenesí de cacao." },
+            { category: "Helados Combinados", name: "Frutos rojos", price: 6500, img: "assets/helados_frutales.png", desc: "Mezcla ácida y dulce." },
+
+            // Postres
+            { category: "Postres Clásicos", name: "Brownie caliente + helado", price: 12000, img: "assets/postre_brownie.png", desc: "El mejor contraste." },
+            { category: "Postres Clásicos", name: "Crepas dulces", price: 14000, img: "assets/postres_general.png", desc: "Rellenas a tú gusto." },
+            { category: "Postres Clásicos", name: "Waffles con sirope", price: 13000, img: "assets/postres_general.png", desc: "Esponjosos y dorados." },
+            { category: "Postres Clásicos", name: "Galletas con chispas", price: 5000, img: "assets/postres_general.png", desc: "Recién horneadas." },
+            { category: "Postres Especiales", name: "Cheesecake horneado", price: 10000, img: "assets/postres_general.png", desc: "Clásico estilo NY." },
+            { category: "Postres Especiales", name: "Tarta de manzana", price: 9000, img: "assets/postres_general.png", desc: "Con un toque de canela." },
+            { category: "Postres Especiales", name: "Volcán de chocolate", price: 15000, img: "assets/postres_general.png", desc: "Relleno caliente." },
+            { category: "Postres Especiales", name: "Tiramisú artesanal", price: 11000, img: "assets/postres_general.png", desc: "Clásico italiano." },
+
+            // Bebidas
+            { category: "Malteadas y Frappés", name: "Malteada Clásica", price: 10000, img: "assets/bebida_malteada.png", desc: "Del helado que quieras." },
+            { category: "Malteadas y Frappés", name: "Frappé de Café", price: 9000, img: "assets/bebida_malteada.png", desc: "Café, hielo y crema." },
+            { category: "Malteadas y Frappés", name: "Frappé de Oreo", price: 9500, img: "assets/bebida_malteada.png", desc: "Amor por las galletas." },
+            { category: "Malteadas y Frappés", name: "Malteada de Brownie", price: 11000, img: "assets/bebida_malteada.png", desc: "Ultra espesa." },
+            { category: "Bebidas Refrescantes", name: "Jugos en leche/agua", price: 6000, img: "assets/bebida_refrescante_pro.jpg", desc: "Fruta fresca del día." },
+            { category: "Bebidas Refrescantes", name: "Sodas Saborizadas", price: 8000, img: "assets/bebida_refrescante_pro.jpg", desc: "Burbujas frutales." },
+            { category: "Bebidas Refrescantes", name: "Limonada Cerezada", price: 7000, img: "assets/bebida_refrescante_pro.jpg", desc: "Dulce e intensa." },
+            { category: "Bebidas Refrescantes", name: "Limonada de Coco", price: 9000, img: "assets/bebida_refrescante_pro.jpg", desc: "Cremosa y cítrica." },
+            { category: "Bebidas Calientes", name: "Café Americano", price: 4000, img: "assets/bebida_caliente_pro.jpg", desc: "Tradicional." },
+            { category: "Bebidas Calientes", name: "Cappuccino", price: 6000, img: "assets/bebida_caliente_pro.jpg", desc: "Con espuma perfecta." },
+            { category: "Bebidas Calientes", name: "Mocaccino", price: 7000, img: "assets/bebida_caliente_pro.jpg", desc: "Mezcla con chocolate." },
+            { category: "Bebidas Calientes", name: "Choco-malvaviscos", price: 8000, img: "assets/bebida_caliente_pro.jpg", desc: "Ideal para el frío." }
+        ];
+
+        let orderItems = [];
+
+        function renderCatalog() {
+            const container = document.getElementById('catalog-content');
+            container.innerHTML = '';
+            
+            // Asignar IDs globales únicos para evitar colisiones
+            productsData.forEach((p, idx) => {
+                p._id = idx;
+            });
+            
+            // Agrupar por categoría
+            const grouped = {};
+            productsData.forEach(p => {
+                if(!grouped[p.category]) grouped[p.category] = [];
+                grouped[p.category].push(p);
+            });
+
+            for (const category in grouped) {
+                const sec = document.createElement('div');
+                sec.className = 'mb-16';
+                
+                // Asignar IDs para los anchors desde index.html
+                let targetId = "general";
+                const catLower = category.toLowerCase();
+                if(catLower.includes("helado") || catLower.includes("paleta")) targetId = "helados";
+                else if(catLower.includes("postre")) targetId = "postres";
+                else if(catLower.includes("bebida") || catLower.includes("malteada")) targetId = "bebidas";
+                
+                // Solo asignar ID al primer bloque de esa categoría para evitar duplicados
+                if (!document.getElementById(targetId)) {
+                    sec.id = targetId;
+                    sec.style.scrollMarginTop = "150px"; 
+                }
+                
+                const title = document.createElement('h2');
+                title.className = 'text-3xl font-heading font-bold mb-8 text-brand-text border-b border-brand-mint/30 pb-2 inline-block relative';
+                title.textContent = category;
+                sec.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'catalog-grid';
+
+                grouped[category].forEach((item) => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white/90 backdrop-blur-md border border-gray-100 p-8 rounded-[32px] shadow-sm hover:shadow-[0_15px_40px_rgba(0,0,0,0.06)] spring-anim flex flex-col group relative overflow-hidden';
+                    
+                    const priceFormatted = new Intl.NumberFormat('es-CO', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(item.price);
+
+                    card.innerHTML = `
+                        <div class="h-44 w-full mb-6 rounded-2xl bg-gray-100 flex items-center justify-center overflow-hidden border border-gray-50 group-hover:bg-gray-200 transition-colors duration-300">
+                             <div class="w-16 h-16 opacity-10 bg-gray-600 rounded-lg"></div>
+                        </div>
+                        <h3 class="font-heading font-extrabold text-2xl text-brand-text mb-2 relative z-10 leading-tight">${item.name}</h3>
+                        <p class="text-brand-textlight font-medium text-sm mb-6 leading-relaxed flex-grow relative z-10">${item.desc}</p>
+                        
+                        <div class="flex flex-col gap-4 mt-auto relative z-10">
+                            <div class="flex justify-between items-end border-b border-gray-100 pb-3">
+                                <span class="font-body font-bold text-gray-400 text-xs uppercase tracking-widest">Precio</span>
+                                <span class="font-heading font-extrabold text-2xl tracking-tight text-brand-pink">${priceFormatted}</span>
+                            </div>
+
+                            <div class="flex items-center gap-3 w-full mt-1">
+                                <!-- Brand Aesthetic Pill Counter -->
+                                <div class="flex items-center justify-between w-[110px] bg-brand-pink/5 rounded-full border border-brand-pink/20 overflow-hidden h-[48px] flex-shrink-0 transition-colors group-hover:border-brand-pink/40">
+                                    <button type="button" onclick="updateQty(${item._id}, -1)" class="w-9 h-full text-brand-pink hover:text-white hover:bg-brand-pink font-black text-xl transition-all flex items-center justify-center select-none">-</button>
+                                    <input type="number" id="qty-${item._id}" value="1" min="1" class="w-8 h-full text-center outline-none font-extrabold text-brand-text text-lg bg-transparent p-0 border-none pointer-events-none" style="-moz-appearance: textfield;">
+                                    <button type="button" onclick="updateQty(${item._id}, 1)" class="w-9 h-full text-brand-pink hover:text-white hover:bg-brand-pink font-black text-xl transition-all flex items-center justify-center select-none">+</button>
+                                </div>
+                                <!-- Agregar Button -->
+                                <button type="button" onclick="addToOrder(${item._id}, event)" class="flex-grow bg-gradient-to-r from-brand-pink to-[#ff3355] border-none outline-none text-white h-[48px] px-3 rounded-full font-heading font-bold text-base shadow-[0_8px_15px_rgba(217,4,41,0.2)] spring-anim hover:-translate-y-1 hover:shadow-[0_12px_20px_rgba(217,4,41,0.3)] active:scale-95 select-none">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                sec.appendChild(grid);
+                container.appendChild(sec);
+            }
+        }
+
+        window.updateQty = function(index, change) {
+            const el = document.getElementById('qty-' + index);
+            let val = parseInt(el.value);
+            val += change;
+            if (val < 1) val = 1;
+            el.value = val;
+        }
+
+        window.addToOrder = function(index, e) {
+            const item = productsData[index];
+            const qty = parseInt(document.getElementById('qty-' + index).value);
+            
+            const existing = orderItems.find(x => x.name === item.name);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                orderItems.push({ name: item.name, price: item.price, qty: qty });
+            }
+            
+            const btn = e.currentTarget;
+            btn.textContent = '¡Hecho!';
+            btn.classList.remove('from-brand-pink', 'to-[#ff3355]');
+            btn.classList.add('from-brand-mint', 'to-[#089c62]');
+            setTimeout(() => {
+                btn.textContent = 'Agregar';
+                btn.classList.remove('from-brand-mint', 'to-[#089c62]');
+                btn.classList.add('from-brand-pink', 'to-[#ff3355]');
+            }, 1000);
+
+            updateOrderSummary();
+            document.getElementById('qty-' + index).value = 1;
+        }
+
+        window.changeCartQty = function(idx, change) {
+            orderItems[idx].qty += change;
+            if (orderItems[idx].qty <= 0) {
+                removeOrderItem(idx);
+            } else {
+                updateOrderSummary();
+            }
+        }
+
+        function updateOrderSummary() {
+            const list = document.getElementById('order-items-list');
+            const totalEl = document.getElementById('order-total');
+            
+            if (orderItems.length === 0) {
+                list.innerHTML = '<li class="italic text-brand-textlight">Tu carrito está vacío. Añade productos desde el catálogo.</li>';
+                totalEl.textContent = '$0 COP';
+                return;
+            }
+
+            list.innerHTML = '';
+            let total = 0;
+            
+            orderItems.forEach((item, idx) => {
+                const subtotal = item.price * item.qty;
+                const priceFmt = new Intl.NumberFormat('es-CO', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(subtotal);
+
+                const li = document.createElement('li');
+                li.className = "bg-white p-3 rounded-xl border border-gray-100 shadow-sm transition-all";
+                li.innerHTML = `
+                    <div class="flex flex-col gap-2 w-full">
+                        <span class="font-bold text-sm text-brand-text">${item.name}</span>
+                        <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center bg-[#faf8f6] rounded-md border border-gray-200">
+                                <button type="button" onclick="changeCartQty(${idx}, -1)" class="w-8 text-brand-text font-bold hover:text-brand-pink transition-colors">-</button>
+                                <span class="font-semibold text-xs min-w-[20px] text-center border-l border-r border-gray-200">${item.qty}</span>
+                                <button type="button" onclick="changeCartQty(${idx}, 1)" class="w-8 text-brand-text font-bold hover:text-brand-mint transition-colors">+</button>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-brand-pink font-bold">${priceFmt}</span>
+                                <button type="button" onclick="removeOrderItem(${idx})" class="text-red-400 hover:text-red-600 text-lg transition-colors leading-none" title="Eliminar">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(li);
+                total += subtotal;
+            });
+            
+            totalEl.textContent = new Intl.NumberFormat('es-CO', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(total);
+        }
+
+        window.removeOrderItem = function(idx) {
+            orderItems.splice(idx, 1);
+            updateOrderSummary();
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Dulces Frios</title>
+    <meta name="description" content="Haz tu pedido de los mejores helados artesanales.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: { preflight: false },
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#d90429',
+                            pinklight: '#ff5a47',
+                            celeste: '#0275d8',
+                            cream: '#f5b041',
+                            mint: '#089c62',
+                            text: '#000000',
+                            textlight: '#333333'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Quicksand', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 10px 30px rgba(0, 0, 0, 0.15)',
+                        hover: '0 15px 40px rgba(0, 0, 0, 0.3)',
+                        pinkLayer: '0 10px 40px -10px rgba(245, 105, 126, 0.6)',
+                        mintLayer: '0 10px 40px -10px rgba(114, 216, 178, 0.6)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .spring-anim {
+            transition-property: transform, opacity, box-shadow;
+            transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition-duration: 400ms;
+        }
+
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* Mobile menu styles inherited from styles.css */
+    </style>
+</head>
+
+<body class="bg-white text-brand-text font-body relative overflow-x-hidden">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Dulces<span>Frios</span></div>
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="contacto.html" class="btn-primary">Contacto</a>
+        </nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </header>
+
+    <!-- Main Content wrapper -->
+    <main class="pt-[100px] min-h-screen relative pb-20">
+
+        <!-- Background decorative blobs and gradients -->
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-pink/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 -z-10">
+        </div>
+        <div
+            class="absolute top-[30%] left-0 w-[500px] h-[500px] bg-brand-mint/20 rounded-full blur-[80px] -translate-x-1/2 -z-10">
+        </div>
+        <div
+            class="absolute bottom-0 right-[20%] w-[400px] h-[400px] bg-brand-celeste/20 rounded-full blur-[60px] translate-y-1/3 -z-10">
+        </div>
+        <div class="bg-noise"></div>
+
+        <div class="max-w-7xl mx-auto px-[5%] py-12">
+
+            <div class="text-center mb-16 relative z-10">
+                <h1 class="text-4xl md:text-6xl font-heading font-extrabold tracking-[-0.03em] mb-4 text-brand-text">Contáctanos ✨</h1>
+                <p class="text-brand-textlight text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Estamos aquí para ayudarte. Si tienes alguna duda, petición o sugerencia, no dudes en escribirnos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 relative z-10">
+                <!-- Contact Form -->
+                <section class="lg:col-span-3">
+                    <div class="bg-white/80 backdrop-blur-2xl border border-white p-8 md:p-12 rounded-[40px] shadow-soft relative overflow-hidden h-full">
+                        <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-pink/20 rounded-full blur-[60px] pointer-events-none"></div>
+
+                        <h2 class="text-2xl md:text-4xl font-heading font-extrabold mb-10 text-center text-brand-text tracking-[-0.02em]">¿Preguntas? Déjanos un mensaje</h2>
+
+                        <form class="flex flex-col gap-6 relative z-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <input type="text" placeholder="Nombre Completo"
+                                    class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                                
+                                <input type="email" placeholder="Correo Electrónico"
+                                    class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                                
+                                <input type="tel" placeholder="Teléfono"
+                                    class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                                
+                                <input type="text" placeholder="Lugar donde lo atendieron"
+                                    class="w-full px-5 py-4 bg-[#faf8f6] rounded-xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400">
+                            </div>
+
+                            <textarea rows="4" placeholder="Mensaje y/o comentarios"
+                                class="w-full px-5 py-4 bg-[#faf8f6] rounded-2xl border border-gray-200 focus:bg-white focus:outline-none focus:border-brand-pink focus:shadow-pinkLayer transition-all duration-300 font-body text-brand-text placeholder-gray-400 resize-none"></textarea>
+
+                            <div class="mt-4 flex justify-end">
+                                <button type="button"
+                                    class="bg-brand-text text-white px-10 py-4 rounded-full font-heading font-bold tracking-wide shadow-soft spring-anim hover:-translate-y-1 hover:shadow-hover hover:bg-brand-pink active:scale-[0.98]">
+                                    Enviar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Redes Sociales -->
+                <section class="lg:col-span-2 flex flex-col justify-center">
+                    <h2 class="text-3xl font-heading font-bold mb-8 text-center lg:text-left">Redes Sociales Vigentes
+                    </h2>
+
+                    <div class="flex flex-col gap-5">
+                        <!-- Instagram -->
+                        <a href="#"
+                            class="group relative bg-white/70 backdrop-blur-xl border border-white shadow-soft rounded-[32px] p-5 flex items-center gap-5 spring-anim hover:-translate-y-2 hover:shadow-pinkLayer overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-[#833ab4]/10 via-[#fd1d1d]/10 to-[#fcb045]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-[18px] bg-gradient-to-tr from-[#fd1d1d] to-[#833ab4] flex items-center justify-center shrink-0 shadow-[0_10px_20px_rgba(253,29,29,0.3)] relative z-10 spring-anim group-hover:scale-110">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                                </svg>
+                            </div>
+                            <div class="relative z-10 flex-col flex">
+                                <span
+                                    class="font-heading font-bold text-xl text-brand-text group-hover:text-[#e1306c] transition-colors">@dulcesfrios</span>
+                                <span class="text-brand-textlight text-sm font-medium">Síguenos para novedades</span>
+                            </div>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="#"
+                            class="group relative bg-white/70 backdrop-blur-xl border border-white shadow-soft rounded-[32px] p-5 flex items-center gap-5 spring-anim hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(24,119,242,0.3)] overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-[#1877F2]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-[18px] bg-[#1877F2] flex items-center justify-center shrink-0 shadow-[0_10px_20px_rgba(24,119,242,0.3)] relative z-10 spring-anim group-hover:scale-110">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </div>
+                            <div class="relative z-10 flex-col flex">
+                                <span
+                                    class="font-heading font-bold text-xl text-brand-text group-hover:text-[#1877F2] transition-colors">/DulcesFrios</span>
+                                <span class="text-brand-textlight text-sm font-medium">Únete a nuestra comunidad</span>
+                            </div>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a href="#"
+                            class="group relative bg-white/70 backdrop-blur-xl border border-white shadow-soft rounded-[32px] p-5 flex items-center gap-5 spring-anim hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div
+                                class="w-14 h-14 rounded-[18px] bg-black flex items-center justify-center shrink-0 shadow-[0_10px_20px_rgba(0,0,0,0.2)] relative z-10 spring-anim group-hover:scale-110">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                                </svg>
+                            </div>
+                            <div class="relative z-10 flex-col flex">
+                                <span
+                                    class="font-heading font-bold text-xl text-brand-text transition-colors">@dulces.frios</span>
+                                <span class="text-brand-textlight text-sm font-medium">Videos y diversión</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Brand & Logos -->
+            <div class="footer-brand">
+                <div class="logo">Dulces<span>Frios</span></div>
+                <p>Endulzando tus momentos especiales con la mejor calidad y todo el sabor.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><svg class="w-6 h-6" style="width: 24px; height: 24px;"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.325V1.325C24 .597 23.403 0 22.675 0z" />
+                        </svg></a>
+                    <a href="#" aria-label="Instagram"><svg class="w-6 h-6" style="width: 24px; height: 24px;"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg></a>
+                    <a href="#" aria-label="X"><svg class="w-6 h-6" style="width: 24px; height: 24px;"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg></a>
+                    <a href="#" aria-label="YouTube"><svg class="w-6 h-6" style="width: 24px; height: 24px;"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg></a>
+                    <a href="#" aria-label="TikTok"><svg class="w-6 h-6" style="width: 24px; height: 24px;"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                        </svg></a>
+                </div>
+            </div>
+
+            <!-- Menú -->
+            <div class="footer-links">
+                <h4>Menú</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#sabores">Sabores</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+
+            <!-- Creadores -->
+            <div class="footer-creators">
+                <h4>Creado por</h4>
+                <ul>
+                    <li>Olga Mendoza <br><a href="mailto:olmendoza@uniguajira.edu.co"
+                            class="text-brand-pink text-sm opacity-90 hover:opacity-100 transition-opacity">olmendoza@uniguajira.edu.co</a>
+                    </li>
+                    <li>Aiman Segovia <br><a href="mailto:alsegovia@uniguajira.edu.co"
+                            class="text-brand-pink text-sm opacity-90 hover:opacity-100 transition-opacity">alsegovia@uniguajira.edu.co</a>
+                    </li>
+                    <li>Carlos Reyes <br><a href="mailto:cjosereyes@uniguajira.edu.co"
+                            class="text-brand-pink text-sm opacity-90 hover:opacity-100 transition-opacity">cjosereyes@uniguajira.edu.co</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dulces Frios. Todos los derechos reservados.</p>
+            <p style="margin-top: 8px;">Universidad de La Guajira - Ampliación Maicao | Instagram: <a
+                    href="https://instagram.com/uniguajirasede" target="_blank"
+                    class="text-brand-celeste">@uniguajirasede maicao</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
